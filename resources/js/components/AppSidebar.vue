@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
+import blog from '@/routes/blog';
 
 const mainNavItems: NavItem[] = [
     {
@@ -23,6 +24,11 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: LayoutGrid,
     },
+    {
+        title: 'Blog',
+        href: blog.index(),
+        icon: LayoutGrid,
+    }
 ];
 
 const footerNavItems: NavItem[] = [

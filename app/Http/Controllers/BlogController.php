@@ -6,16 +6,18 @@ use App\Ai\Agents\FinanceJournalist;
 use App\Jobs\GetWebContent;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $blogs = Blog::query()->latest()->get();
 
         return Inertia::render('Blog/Index', [
             'blogs' => $blogs,
+            'jobId' => session('jobId'),
         ]);
     }
 
@@ -25,10 +27,10 @@ class BlogController extends Controller
             'url' => ['required', 'url'],
         ]);
 
-        GetWebContent::dispatch(FinanceJournalist::make(), $validated['url']);
+        $jobId = (string) Str::uuid();
 
-        Inertia::flash('message', 'Your request is being processed. The content will be available soon.');
+        GetWebContent::dispatch(FinanceJournalist::make(), $validated['url'], $jobId);
 
-        return to_route('blog.index');
+        return back()->with('jobId', $jobId);
     }
 }

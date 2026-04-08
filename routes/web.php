@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -14,7 +15,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'prefix' => 'blog',
         'as' => 'blog.',
     ], function () {
-        Route::inertia('/', 'Blog/Index')->name('index');
+        Route::get('/', [BlogController::class, 'index'])->name('index');
+        Route::post('/', [BlogController::class, 'store'])->name('store');
     });
 });
 

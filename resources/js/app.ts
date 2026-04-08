@@ -3,6 +3,8 @@ import { initializeTheme } from '@/composables/useAppearance';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
+import { helpers } from '@/helper';
+import { createApp, h, DefineComponent } from 'vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -20,6 +22,15 @@ createInertiaApp({
                 return AppLayout;
         }
     },
+    setup({ el, App, props, plugin }) {
+        const app = createApp({ render: () => h(App, props) })
+            .use(plugin);
+
+        app.config.globalProperties.$helpers = helpers;
+
+        app.mount(el);
+    },
+
     progress: {
         color: '#4B5563',
     },

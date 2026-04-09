@@ -38,6 +38,7 @@ declare module 'vue' {
         $inertia: typeof Router;
         $page: Page;
         $headManager: ReturnType<typeof createHeadManager>;
+        $helpers: typeof import('@/helper').helpers;
     }
 }
 

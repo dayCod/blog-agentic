@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import { dashboard } from '@/routes';
 import {
@@ -20,7 +20,7 @@ import { useJobProgress } from '@/composables/useJobProgress';
 
 const props = defineProps({
     blogs: {
-        type: Array,
+        type: Object,
         required: true,
     },
     jobId: {
@@ -64,7 +64,7 @@ watch(
             });
         }
     },
-    { immediate: true }
+    { immediate: true },
 );
 
 defineOptions({
